@@ -17,12 +17,12 @@ from plugins import *
 from . import *
 
 Owner_info_msg = f"""
-**Owner** - {OWNER_NAME}
-**OwnerID** - `{OWNER_ID}`
+**اسم المدير** - {OWNER_NAME}
+**ايدي المدير** - `{OWNER_ID}`
 
-**Message Forwards** - {udB.get("PMBOT")}
+**توجية الرسائل ** - {udB.get("PMBOT")}
 
-__Ultroid {ultroid_version}, powered by @TeamUltroid__
+__النسخة  {ultroid_version}, بواسطة  @zawamlansarallah__
 """
 
 _settings = [
@@ -32,21 +32,21 @@ _settings = [
     ],
     [
         Button.inline("Aʟɪᴠᴇ", data="alvcstm"),
-        Button.inline("PᴍPᴇʀᴍɪᴛ", data="ppmset"),
+        Button.inline("اعدادات الخاص", data="ppmset"),
     ],
-    [Button.inline("Fᴇᴀᴛᴜʀᴇs", data="otvars")],
-    [Button.inline("VC Sᴏɴɢ Bᴏᴛ", data="vcb")],
-    [Button.inline("« Bᴀᴄᴋ", data="mainmenu")],
+    [Button.inline("المميزات", data="otvars")],
+    [Button.inline("بوت  المكالمات الصوتية", data="vcb")],
+    [Button.inline("« عودة", data="mainmenu")],
 ]
 
 _start = [
     [
-        Button.inline("Lᴀɴɢᴜᴀɢᴇ 🌐", data="lang"),
-        Button.inline("Sᴇᴛᴛɪɴɢs ⚙️", data="setter"),
+        Button.inline("اللغة 🌐", data="lang"),
+        Button.inline("الاعدادات ⚙️", data="setter"),
     ],
     [
-        Button.inline("Sᴛᴀᴛs ✨", data="stat"),
-        Button.inline("Bʀᴏᴀᴅᴄᴀsᴛ 📻", data="bcast"),
+        Button.inline("حالة البوت ✨", data="stat"),
+        Button.inline("اذاعه 📻", data="bcast"),
     ],
 ]
 
@@ -55,7 +55,7 @@ _start = [
 async def own(event):
     await event.edit(
         Owner_info_msg,
-        buttons=[Button.inline("Close", data=f"closeit")],
+        buttons=[Button.inline("اغلاق", data=f"closeit")],
     )
 
 
@@ -69,10 +69,10 @@ async def ultroid(event):
     if event.is_group:
         if str(event.sender_id) in owner_and_sudos():
             return await event.reply(
-                "`I dont work in groups`",
+                "`انا لا اعمل بالقروبات `",
                 buttons=[
                     Button.url(
-                        "⚙️Sᴛᴀʀᴛ⚙️", url=f"https://t.me/{asst.me.username}?start=set"
+                        "⚙️ابدأ⚙️", url=f"https://t.me/{asst.me.username}?start=set"
                     )
                 ],
             )
@@ -87,9 +87,9 @@ async def ultroid(event):
             u = await event.client.get_entity(event.chat_id)
             if not udB.get("STARTMSG"):
                 if udB.get("PMBOT") == "True":
-                    ok = "You can contact my master using this bot!!\n\nSend your Message, I will Deliver it To Master."
+                    ok = "تستطيع مراسلة المشرف عبر هذا البوت !!\n\nارسل رسالتك وسيتم الرد عليها قريبا ."
                 await event.reply(
-                    f"Hey there [{get_display_name(u)}](tg://user?id={u.id}), this is Ultroid Assistant of [{ultroid_bot.me.first_name}](tg://user?id={ultroid_bot.uid})!\n\n{ok}",
+                    f"مرحبا  [{get_display_name(u)}](tg://user?id={u.id}), هذا البوت مساعد  [{ultroid_bot.me.first_name}](tg://user?id={ultroid_bot.uid})!\n\n{ok}",
                     buttons=[Button.inline("Info.", data="ownerinfo")],
                 )
             else:
@@ -103,7 +103,7 @@ async def ultroid(event):
             name = get_display_name(event.sender_id)
             if event.pattern_match.group(1) == "set":
                 await event.reply(
-                    "Choose from the below options -",
+                    "اختر احد الخيارات بالاسفل  -",
                     buttons=_settings,
                 )
             else:
@@ -128,8 +128,8 @@ async def ultroid(event):
 @owner
 async def botstat(event):
     ok = len(get_all_users())
-    msg = """Ultroid Assistant - Stats
-Total Users - {}""".format(
+    msg = """حالة البوت  - 
+كامل المستخدمين  - {}""".format(
         ok,
     )
     await event.answer(msg, cache_time=0, alert=True)
@@ -139,10 +139,10 @@ Total Users - {}""".format(
 @owner
 async def bdcast(event):
     ok = get_all_users()
-    await event.edit(f"Broadcast to {len(ok)} users.")
+    await event.edit(f" الارسال الى  {len(ok)} مستخدم.")
     async with event.client.conversation(OWNER_ID) as conv:
         await conv.send_message(
-            "Enter your broadcast message.\nUse /cancel to stop the broadcast.",
+            "قم بادخال الرساله التي تريد نشرها .\nاو اضغط  /cancel لالغاء الطلب.",
         )
         response = conv.wait_event(events.NewMessage(chats=OWNER_ID))
         response = await response
@@ -152,7 +152,7 @@ async def bdcast(event):
         else:
             success = 0
             fail = 0
-            await conv.send_message(f"Starting a broadcast to {len(ok)} users...")
+            await conv.send_message(f"جاري الارسال الى  {len(ok)} مستخدم ...")
             start = datetime.now()
             for i in ok:
                 try:
@@ -164,10 +164,10 @@ async def bdcast(event):
             time_taken = (end - start).seconds
             await conv.send_message(
                 f"""
-Broadcast completed in {time_taken} seconds.
-Total Users in Bot - {len(ok)}
-Sent to {success} users.
-Failed for {fail} user(s).""",
+تم ارسال الرساله في  {time_taken} ثواني.
+عدد المشتركين بالبوت  - {len(ok)}
+تم الارسال ل  {success} مشترك.
+فشل الارسال الى  {fail} مشترك .""",
             )
 
 
@@ -175,6 +175,6 @@ Failed for {fail} user(s).""",
 @owner
 async def setting(event):
     await event.edit(
-        "Choose from the below options -",
+        "اختار احد الخيارات بالاسفل  -",
         buttons=_settings,
     )
