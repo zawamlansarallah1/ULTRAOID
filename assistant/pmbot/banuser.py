@@ -15,17 +15,17 @@ async def banhammer(event):
         return
     x = await event.get_reply_message()
     if x is None:
-        return await event.edit("Please reply to someone to ban him.")
+        return await event.edit("الرجاء الرد على رسالة الشخص لحظرة .")
     target = get_who(x.id)
     if not is_blacklisted(target):
         blacklist_user(target)
-        await asst.send_message(event.chat_id, f"#BAN\nUser - {target}")
+        await asst.send_message(event.chat_id, f"#تم حظر \nالمستخدم  - {target}")
         await asst.send_message(
             target,
-            "`GoodBye! You have been banned.`\n**Further messages you send will not be forwarded.**",
+            "`مع السلامة ! لقد تم حظرك .`\n**لن نستقبل اي رساله منك فصاعدا .**",
         )
     else:
-        return await asst.send_message(event.chat_id, f"User is already banned!")
+        return await asst.send_message(event.chat_id, f"المستخدم محظور بالفعل !")
 
 
 @asst_cmd("unban")
@@ -35,11 +35,11 @@ async def banhammer(event):
         return
     x = await event.get_reply_message()
     if x is None:
-        return await event.edit("Please reply to someone to ban him.")
+        return await event.edit("يرجى الرد على رسالة الشخص لحظره.")
     target = get_who(x.id)
     if is_blacklisted(target):
         rem_blacklist(target)
         await asst.send_message(event.chat_id, f"#UNBAN\nUser - {target}")
-        await asst.send_message(target, "`Congrats! You have been unbanned.`")
+        await asst.send_message(target, "`مبروووك! تم الغاء حظرك .`")
     else:
-        return await asst.send_message(event.chat_id, f"User was never banned!")
+        return await asst.send_message(event.chat_id, f"المستخدم غير محظور أصلا!")
