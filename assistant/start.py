@@ -27,11 +27,11 @@ __النسخة  {ultroid_version}, بواسطة  @zawamlansarallah__
 
 _settings = [
     [
-        Button.inline("API Kᴇʏs", data="apiset"),
-        Button.inline("Pᴍ Bᴏᴛ", data="chatbot"),
+        Button.inline("API توكنات", data="apiset"),
+        Button.inline("بوت التواصل", data="chatbot"),
     ],
     [
-        Button.inline("Aʟɪᴠᴇ", data="alvcstm"),
+        Button.inline("حالة البوت", data="alvcstm"),
         Button.inline("اعدادات الخاص", data="ppmset"),
     ],
     [Button.inline("المميزات", data="otvars")],
@@ -72,7 +72,7 @@ async def ultroid(event):
                 "`انا لا اعمل بالقروبات `",
                 buttons=[
                     Button.url(
-                        "⚙️ابدأ⚙️", url=f"https://t.me/{asst.me.username}?start=set"
+                        "⚙️الاعدادات⚙️", url=f"https://t.me/{asst.me.username}?start=set"
                     )
                 ],
             )
@@ -97,7 +97,7 @@ async def ultroid(event):
                 mention = f"[{get_display_name(u)}](tg://user?id={u.id})"
                 await event.reply(
                     Redis("STARTMSG").format(me=me, mention=mention),
-                    buttons=[Button.inline("Info.", data="ownerinfo")],
+                    buttons=[Button.inline("معلومات المدير .", data="ownerinfo")],
                 )
         else:
             name = get_display_name(event.sender_id)
